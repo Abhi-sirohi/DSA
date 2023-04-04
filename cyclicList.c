@@ -48,6 +48,8 @@ int main()
         case 3:
         {
             head = process(head, end, quantum);
+            printf("Exiting the Program.....");
+            exit(0);
             break;
         }
         case 4:
@@ -103,7 +105,7 @@ void display(clist *head, clist *end)
         clist *temp = head;
         while (head != NULL)
         {
-            printf("\nProcess P%d CPU Burst %d", head->position, head->data);
+            printf("\nProcess P%d CPU Burst %d ", head->position, head->data);
             head = head->next;
             if (head == temp)
                 head = NULL;
@@ -124,15 +126,15 @@ clist *process(clist *head, clist *end, int quantum)
         {
             head->data = head->data - quantum;
             timer = timer + 1;
-
-            if (head->data <= 0)
+            if (head->data < 0 || head->data == 0)
             {
-                printf("\nProcess P%d is completed at %d ms.", head->position, timer * quantum);
-
+                printf("\nProcess P%d is completed at %d ms.", head->position, (timer * quantum));
                 // If that process is the last process left!
                 if (head->next == head)
                 {
                     head = NULL;
+                    printf("\n\n**************Finished Processing***********\n");
+                    return head;
                 }
                 else if (head != temp && head != end)
                 {
@@ -141,7 +143,8 @@ clist *process(clist *head, clist *end, int quantum)
                 else if (head == end)
                 {
                     end = prev;
-                    end->next = temp;
+                    if (end != NULL)
+                        end->next = temp;
                 }
                 else if (head == temp)
                 {
