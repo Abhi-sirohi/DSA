@@ -1,0 +1,88 @@
+//Bst incomplete another way
+#include <stdio.h>
+
+typedef struct tree{
+struct tree *left;
+int info;
+struct tree *right;
+
+
+}tree;
+
+tree* insert(tree*, int);
+void display(tree*);
+
+int main(){
+tree *root = NULL;
+printf("\n\t------BST program -----\n");
+int ch =0;
+while(ch<3){
+    printf("\nEnter your choice : \n1.Insert in BST tree\n2.Display\n3.Exit\n");
+    scanf("%d",&ch);
+    switch(ch){
+    case 1: {printf("\nEnter a value to insert in BST: ");
+    int x;
+    scanf("%d",&x);
+        root = insert(root,x);
+    break;
+
+    }
+    case 2: {display(root);
+    break;}
+
+    default: exit(0);
+
+
+    }
+
+}
+
+
+
+return 0;
+}
+
+
+tree* insert(tree* root, int x){
+
+if(root!= NULL){
+    if(root->info == NULL){
+        root->info = x;
+        return root;
+
+    }else{
+
+    if(root->info < x){
+    //check right
+
+
+
+    }else{
+    //check left
+
+
+
+    }
+
+    }
+
+}else{
+
+tree *node = (tree*)malloc(sizeof(tree));
+if(node != NULL){
+    root = node;
+
+
+
+}
+
+}
+return root;
+
+
+}
+
+void display(tree* root){
+
+
+}
