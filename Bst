@@ -1,0 +1,101 @@
+
+#include<stdio.h>
+#include<malloc.h>
+
+struct node{
+int data;
+struct node *left,*right;
+};
+
+struct node * newnode(int data)
+{
+struct node * temp=(struct node *)malloc(sizeof(struct node));
+temp->data=data;
+temp->left=temp->right=NULL;
+return temp;
+}
+
+struct node * insert(struct node *root,int data)
+{
+if(root==NULL)
+{
+return newnode(data);
+}
+if(data<root->data){
+root->left=insert(root->left,data);
+}
+else if(data>root->data){
+root->right=insert(root->right,data);
+}
+
+return root;
+}
+
+void inorder(struct node * root)
+{
+if(root!=NULL)
+{
+inorder(root->left);
+printf("\n%d\t",root->data);
+inorder(root->right);
+}
+}
+
+void preorder(struct node * root)
+{
+if(root!=NULL)
+{
+printf("\n%d\t",root->data);
+preorder(root->left);
+preorder(root->right);
+}
+
+}
+
+void postorder(struct node * root)
+{
+if(root!=NULL)
+{
+
+postorder(root->left);
+postorder(root->right);
+printf("\n%d\t",root->data);
+}
+
+}
+
+int countnode(struct node * root)
+{
+int x=0;
+while(root!=NULL)
+{
+x++;
+countnode(root->left);
+}
+return x;
+}
+
+int main()
+{
+int x;
+struct node * root=NULL;
+root=insert(root,50);
+insert(root,40);
+insert(root,60);
+insert(root,65);
+insert(root,55);
+insert(root,70);
+insert(root,30);
+
+printf("\n INorder traversal is\t");
+inorder(root);
+printf("\n pre-order traversal is\t");
+preorder(root);
+printf("\n POST-order traversal is\t");
+postorder(root);
+
+x=countnode(root);
+printf("\n%d nom of left no",x);
+
+return 0;
+}
