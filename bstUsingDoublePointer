@@ -1,0 +1,149 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+// created a data structure for bst
+typedef struct bst
+{
+    struct bst *left;
+    int data;
+    struct bst *right;
+
+} bst;
+
+void insert(bst **, int);
+void preOrder(bst *);
+void inOrder(bst *);
+void postOrder(bst *);
+bst *insertNewNode();
+
+int main()
+{
+
+    bst *root = NULL;
+
+    int ch;
+    do
+    {
+        printf("\nEnter your choice: \n1.INSERT\n2.DISPLAY\n3.EXIT\n");
+        scanf("%d", &ch);
+        switch (ch)
+        {
+        case 1:
+        {
+            printf("\nEnter the data: ");
+            int x;
+            scanf("%d", &x);
+            insert(&root, x);
+
+            break;
+        }
+
+        case 2:
+        {
+            if (root == NULL)
+            {
+                printf("\nEmpty bst");
+            }
+            else
+            {
+                // Different type of displaying data options showing to user.
+                printf("\nEnter your choice: \n1.PREORDER\n2.INORDER\n3.POSTORDER\n");
+                int val;
+                scanf("%d", &val);
+                switch (val)
+                {
+                case 1:
+                    preOrder(root);
+                    break;
+                case 2:
+                    inOrder(root);
+                    break;
+                case 3:
+                    postOrder(root);
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            break;
+        }
+
+        default:
+            exit(0);
+            break;
+        }
+
+    } while (ch < 3);
+
+    return 0;
+}
+
+void insert(bst **root, int x)
+{
+    // check if the root is null
+    if ((*root) == NULL)
+    {
+        // Insert new Node of type bst
+        *root = (insertNewNode());
+        (*root)->data = x;
+        (*root)->left = NULL;
+        (*root)->right = NULL;
+    }
+    else
+    {
+        // check if the data is greater than the node , if yes then go to right child otherwise left.
+        if (x > (*root)->data)
+        {
+            // move to right
+            insert(&(*root)->right, x);
+        }
+        else
+        {
+            // move to left
+            insert(&(*root)->left, x);
+        }
+    }
+}
+
+bst *insertNewNode()
+{
+    // Create new memory
+    bst *root = (bst *)malloc(sizeof(bst));
+    if (root != NULL)
+    {
+        printf("\nNew memory allocated successfully!");
+    }
+    else
+    {
+        printf("\nERROR creating new memory");
+    }
+    return root;
+}
+
+void preOrder(bst *root)
+{
+    // check if the root is NULL
+    if (root != NULL)
+    {
+        printf("\n%d", root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+void inOrder(bst *root)
+{
+    // check if the root is NULL
+    if (root != NULL)
+    {
+        preOrder(root->left);
+        printf("\n%d", root->data);
+        preOrder(root->right);
+    }
+}
+void postOrder(bst *root)
+{
+    preOrder(root->left);
+    preOrder(root->right);
+    printf("\n%d", root->data);
+}
